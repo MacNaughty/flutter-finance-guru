@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class HomeViewModel with ChangeNotifier {
   late IFinDataRepository financialDataRepository;
 
-  List<AssetModel>? assetList;
+  List<AssetModel> assetList = [];
 
   HomeViewModel({required IFinDataRepository financialDataRepository }) {
     financialDataRepository = financialDataRepository;
