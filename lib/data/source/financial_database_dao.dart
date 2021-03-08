@@ -7,14 +7,9 @@ import 'i_findata_dao.dart';
 
 class FinancialDatabaseDao extends IFinDataDao {
 
-  Database? database;
-
-  FinancialDatabaseDao() {
-    setDB();
-  }
-
-  Future<void> setDB() async {
-    database = await FinGuruDatabase.instance.database;
+  late Database _database;
+  FinancialDatabaseDao({required Database database}) {
+    _database = database;
   }
 
   @override

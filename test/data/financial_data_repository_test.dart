@@ -8,9 +8,9 @@ import '../../lib/data/financial_data_repository.dart';
 
 final dummyPositiveModelList = [AssetModel(value: 100, title: 'Money in the bank', uuid: 1)];
 
-
+@GenerateMocks([FinancialDataRepository])
 void main() {
-  FinancialDataRepository financialDataRepository = FinancialDataRepository.instance;
+  FinancialDataRepository financialDataRepository = FinancialDataRepository();
 
   group('fetchPost', () {
     test('should fetch and set assetModelList from the database, using dao', () async {

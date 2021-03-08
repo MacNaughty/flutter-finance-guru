@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
+
 class FinancialDataModel extends Equatable {
   late String title;
   late int value;
