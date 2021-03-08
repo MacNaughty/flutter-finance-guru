@@ -1,10 +1,28 @@
 import 'package:finance_guru/data/i_findata_repo.dart';
+import 'package:finance_guru/model/financial_data_model.dart';
+import 'package:sqflite/sqflite.dart';
 
-class FinancialDatabaseDao extends IFinDataRepository {
+import 'financial_guru_database.dart';
+import 'i_findata_dao.dart';
+
+class FinancialDatabaseDao extends IFinDataDao {
+
+  Database? database;
+
+  FinancialDatabaseDao() {
+    setDB();
+  }
+
+  Future<void> setDB() async {
+    database = await FinGuruDatabase.instance.database;
+  }
+
   @override
-  fetchAssetModelList() {
+  Future<List<AssetModel>> fetchAssetModelList() {
 
     throw UnimplementedError();
   }
+
+
 
 }

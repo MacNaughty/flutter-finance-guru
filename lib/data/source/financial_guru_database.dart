@@ -7,13 +7,13 @@ class FinGuruDatabase {
   static final FinGuruDatabase instance = FinGuruDatabase._();
   static Database? _database;
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (_database != null) {
       return _database!;
     }
 
     _database = await initDB();
-    return _database!;
+    return _database;
   }
 
   Future<Database?> initDB() async {
