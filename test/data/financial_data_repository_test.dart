@@ -1,25 +1,30 @@
+import 'package:finance_guru/data/source/financial_database_dao.dart';
 import 'package:mockito/annotations.dart';
 import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:finance_guru/vm/home_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../lib/data/financial_data_repository.dart';
+import 'package:finance_guru/data/financial_data_repository.dart';
+
+import 'financial_data_repository_test.mocks.dart';
 
 final dummyPositiveModelList = [AssetModel(value: 100, title: 'Money in the bank', uuid: 1)];
 
-@GenerateMocks([FinancialDataRepository])
+@GenerateMocks([FinancialDatabaseDao])
 void main() {
-  FinancialDataRepository financialDataRepository = FinancialDataRepository();
+  MockFinancialDatabaseDao mockFinancialDatabaseDao = MockFinancialDatabaseDao();
 
-  group('fetchPost', () {
+  FinancialDataRepository financialDataRepository = FinancialDataRepository(dao: mockFinancialDatabaseDao);
+
+  group('fetch positive data model list', () {
     test('should fetch and set assetModelList from the database, using dao', () async {
       // TODO: make mock class for dao & database
-      when(dataSource.fetchAssetModelList()).thenAnswer((_) async => dummyPositiveModelList);
+      when(financialDataRepository.fetchAssetModelList()).thenAnswer((_) async => dummyPositiveModelList);
 
       expect(financialDataRepository.assetModelList, dummyPositiveModelList);
-      // verify(mockFinancialDataRepository.fetchAssetModelList());
-      // verifyNoMoreInteractions(mockFinancialDataRepository);
+      verify(financialDataRepository.fetchAssetModelList());
+      verifyNoMoreInteractions(financialDataRepository);
     });
   });
 }

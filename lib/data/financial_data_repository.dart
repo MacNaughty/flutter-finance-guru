@@ -4,12 +4,13 @@ import 'i_findata_repo.dart';
 import 'package:flutter/widgets.dart';
 
 import 'source/financial_database_dao.dart';
+import 'source/i_findata_dao.dart';
 
 // This repository will be the single source of truth for home viewmodel
 class FinancialDataRepository implements IFinDataRepository {
 
-  late FinancialDatabaseDao finDataDao;
-  FinancialDataRepository({required FinancialDatabaseDao dao}) {
+  late IFinDataDao finDataDao;
+  FinancialDataRepository({required IFinDataDao dao}) {
     // Avoid errors caused by flutter upgrade.
     WidgetsFlutterBinding.ensureInitialized();
     finDataDao = dao;
