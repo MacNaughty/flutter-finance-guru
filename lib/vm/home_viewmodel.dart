@@ -5,14 +5,14 @@ import 'package:flutter/widgets.dart';
 class HomeViewModel with ChangeNotifier {
   late IFinDataRepository _financialDataRepository;
 
-  List<AssetModel> assetList = [];
+  List<AssetModel> assetModelList = [];
 
   HomeViewModel({required IFinDataRepository financialDataRepository }) {
     _financialDataRepository = financialDataRepository;
   }
 
   Future<void> getAssetModelList() async {
-    assetList = await _financialDataRepository.fetchAssetModelList();
+    assetModelList = await _financialDataRepository.fetchAssetModelList();
   }
 
 }

@@ -20,12 +20,10 @@ class MyApp extends StatelessWidget {
         // brightness: Brightness.dark,
         primarySwatch: Colors.blue,
       ),
-      routes: {'/': (context) => RepositoryProvider(
-        create: (ctx) => FinancialDataRepository(),
-        child: Provider<HomeViewModel>(
-            create: (ctx) => HomeViewModel(financialDataRepository: ctx.watch<FinancialDataRepository>()),
+      routes: {'/': (context) => Provider<HomeViewModel>(
+            create: (ctx) => HomeViewModel(financialDataRepository: FinancialDataRepository.instance),
             child: HomeScreen()),
-      )},
+      },
     );
   }
 }
