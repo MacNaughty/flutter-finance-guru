@@ -8,4 +8,6 @@ abstract class IFinDataRepository {
   List<DebtModel> get debtModelList;
   Future<List<DebtModel>> fetchDebtModelList();
 
+  Future<void> addItemToAssetModelList(AssetModel assetModel);
+
 }

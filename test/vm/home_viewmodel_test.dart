@@ -1,3 +1,4 @@
+import 'package:finance_guru/data/i_findata_repo.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -7,16 +8,18 @@ import 'package:finance_guru/vm/home_viewmodel.dart';
 import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:finance_guru/data/financial_data_repository.dart';
 
-final dummyPositiveModelList = [AssetModel(value: 100, title: 'Money in the Bank', uuid: 1)];
-final dummyNegativeModelList = [DebtModel(value: 50, title: 'Credit Card Debt', uuid: 2)];
 
-class FakeFinancialDataRepository extends Fake implements FinancialDataRepository {
 
-  List<AssetModel> assetModelList = [];
+
+
+class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
+
+  List<AssetModel> _assetModelList = [];
+  List<AssetModel> get assetModelList => _assetModelList;
 
   @override
   Future<void> addItemToAssetModelList(AssetModel assetModel) async {
-    assetModelList.add(assetModel);
+    _assetModelList.add(assetModel);
   }
 }
 
@@ -24,6 +27,8 @@ class FakeFinancialDataRepository extends Fake implements FinancialDataRepositor
 void main() {
 
   group('fetch assetModelList, debtModelList and summary/netModelList', () {
+    final dummyPositiveModelList = [AssetModel(value: 100, title: 'Money in the Bank', uuid: 1)];
+    final dummyNegativeModelList = [DebtModel(value: 50, title: 'Credit Card Debt', uuid: 2)];
     MockFinancialDataRepository mockFinancialDataRepository = MockFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: mockFinancialDataRepository);
     test('fetch and set assetModelList from the repository', () async {
@@ -55,19 +60,33 @@ void main() {
     });
   });
 
-  group('update or delete items from asset/debt modelLists', () {
+  group('update items from asset & debt modelLists', () {
+    AssetModel testAsset = AssetModel(value: 125, title: 'Bricks', uuid: 3);
+
     FakeFinancialDataRepository fakeFinancialDataRepository = FakeFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: fakeFinancialDataRepository);
-    test('add positive asset model to list in repository', () async {
 
+    test('test refresh assetModelList from repository', () async {
       expect(homeViewModel.assetModelList, []);
 
-      AssetModel testAsset = AssetModel(value: 125, title: 'Bricks', uuid: 3);
-      await homeViewModel.addAssetModelToList(testAsset);
+      fakeFinancialDataRepository.assetModelList.add(testAsset);
+
+      await homeViewModel.refreshPositiveItemList();
+
+      expect(homeViewModel.assetModelList, fakeFinancialDataRepository.assetModelList);
+
+
+    });
+
+
+    test('add positive asset model to list in repository', () async {
 
       expect(homeViewModel.assetModelList, [testAsset]);
-      verify(fakeFinancialDataRepository.fetchDebtModelList());
-      verifyNoMoreInteractions(fakeFinancialDataRepository);
+
+
+      await homeViewModel.addAssetModelToList(testAsset);
+
+      expect(homeViewModel.assetModelList, [testAsset, testAsset]);
 
 
     });
