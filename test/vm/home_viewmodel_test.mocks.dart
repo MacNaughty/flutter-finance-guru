@@ -36,12 +36,17 @@ class MockFinancialDataRepository extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#assetModelList),
           returnValue: <_i4.AssetModel>[]) as List<_i4.AssetModel>);
   @override
-  set assetModelList(List<_i4.AssetModel>? _assetModelList) =>
-      super.noSuchMethod(Invocation.setter(#assetModelList, _assetModelList),
-          returnValueForMissingStub: null);
+  List<_i4.DebtModel> get debtModelList =>
+      (super.noSuchMethod(Invocation.getter(#debtModelList),
+          returnValue: <_i4.DebtModel>[]) as List<_i4.DebtModel>);
   @override
   _i5.Future<List<_i4.AssetModel>> fetchAssetModelList() =>
       (super.noSuchMethod(Invocation.method(#fetchAssetModelList, []),
               returnValue: Future.value(<_i4.AssetModel>[]))
           as _i5.Future<List<_i4.AssetModel>>);
+  @override
+  _i5.Future<List<_i4.DebtModel>> fetchDebtModelList() =>
+      (super.noSuchMethod(Invocation.method(#fetchDebtModelList, []),
+              returnValue: Future.value(<_i4.DebtModel>[]))
+          as _i5.Future<List<_i4.DebtModel>>);
 }

@@ -16,13 +16,25 @@ class FinancialDataRepository implements IFinDataRepository {
     finDataDao = dao;
   }
 
+  List<AssetModel> _assetModelList = [];
   @override
-  List<AssetModel> assetModelList = [];
+  List<AssetModel> get assetModelList => _assetModelList;
 
   @override
   Future<List<AssetModel>> fetchAssetModelList() async {
-    assetModelList = await finDataDao.fetchAssetModelList();
-
+    _assetModelList = await finDataDao.fetchAssetModelList();
     return assetModelList;
   }
+
+  List<DebtModel> _debtModelList = [];
+  @override
+  List<DebtModel> get debtModelList => _debtModelList;
+
+  @override
+  Future<List<DebtModel>> fetchDebtModelList() {
+    // TODO: implement fetchDebtModelList
+    throw UnimplementedError();
+  }
+
+
 }
