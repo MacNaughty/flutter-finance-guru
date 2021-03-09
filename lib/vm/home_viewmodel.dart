@@ -22,4 +22,8 @@ class HomeViewModel with ChangeNotifier {
     _debtModelList = await _financialDataRepository.fetchDebtModelList();
   }
 
+  Future<void> addAssetModelToList(AssetModel testAsset) async {
+    throw UnimplementedError('Finish method when test case is done');
+  }
+
 }

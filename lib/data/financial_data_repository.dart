@@ -26,6 +26,11 @@ class FinancialDataRepository implements IFinDataRepository {
     return assetModelList;
   }
 
+  Future<void> addItemToAssetModelList(AssetModel assetModel) async {
+    // TODO: implement addItemToAssetModelList
+    throw UnimplementedError();
+  }
+
   List<DebtModel> _debtModelList = [];
   @override
   List<DebtModel> get debtModelList => _debtModelList;
@@ -35,6 +40,8 @@ class FinancialDataRepository implements IFinDataRepository {
     // TODO: implement fetchDebtModelList
     throw UnimplementedError();
   }
+
+
 
 
 }
