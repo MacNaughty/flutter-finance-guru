@@ -20,11 +20,13 @@ void main() {
   group('fetch positive data model list', () {
     test('should fetch and set assetModelList from the database, using dao', () async {
       // TODO: make mock class for dao & database
-      when(financialDataRepository.fetchAssetModelList()).thenAnswer((_) async => dummyPositiveModelList);
+      when(mockFinancialDatabaseDao.fetchAssetModelList()).thenAnswer((_) async => dummyPositiveModelList);
+
+      await financialDataRepository.fetchAssetModelList();
 
       expect(financialDataRepository.assetModelList, dummyPositiveModelList);
-      verify(financialDataRepository.fetchAssetModelList());
-      verifyNoMoreInteractions(financialDataRepository);
+      verify(mockFinancialDatabaseDao.fetchAssetModelList());
+      verifyNoMoreInteractions(mockFinancialDatabaseDao);
     });
   });
 }

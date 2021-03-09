@@ -8,8 +8,8 @@ import 'source/i_findata_dao.dart';
 
 // This repository will be the single source of truth for home viewmodel
 class FinancialDataRepository implements IFinDataRepository {
-
   late IFinDataDao finDataDao;
+
   FinancialDataRepository({required IFinDataDao dao}) {
     // Avoid errors caused by flutter upgrade.
     WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +20,9 @@ class FinancialDataRepository implements IFinDataRepository {
   List<AssetModel> assetModelList = [];
 
   @override
-  Future<List<AssetModel>> fetchAssetModelList() {
-    // TODO: implement fetchAssetModelList
-    throw UnimplementedError();
+  Future<List<AssetModel>> fetchAssetModelList() async {
+    assetModelList = await finDataDao.fetchAssetModelList();
+
+    return assetModelList;
   }
-
-
-
-
 }
