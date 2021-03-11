@@ -22,12 +22,20 @@ class FinancialDataRepository implements IFinDataRepository {
 
   @override
   Future<List<AssetModel>> fetchAssetModelList() async {
-    _assetModelList = await finDataDao.fetchAssetModelList();
-    return assetModelList;
+    // TODO: implement fetchAssetModelList
+    throw UnimplementedError();
+    // _assetModelList = await finDataDao.fetchAssetModelList();
+    // return assetModelList;
   }
 
-  Future<void> addItemToAssetModelList(AssetModel assetModel) async {
+  Future<void> addAssetModelToList(AssetModel assetModel) async {
     // TODO: implement addItemToAssetModelList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeAssetModelByIndex(int i) async {
+    // TODO: implement removeAssetModelByIndex
     throw UnimplementedError();
   }
 
@@ -40,6 +48,8 @@ class FinancialDataRepository implements IFinDataRepository {
     // TODO: implement fetchDebtModelList
     throw UnimplementedError();
   }
+
+
 
 
 

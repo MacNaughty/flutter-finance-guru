@@ -12,23 +12,23 @@ class HomeViewModel with ChangeNotifier {
 
   HomeViewModel({required IFinDataRepository financialDataRepository }) {
     _financialDataRepository = financialDataRepository;
+    _assetModelList = _financialDataRepository.assetModelList;
   }
 
   Future<void> fetchAssetModelList() async {
     _assetModelList = await _financialDataRepository.fetchAssetModelList();
   }
 
+  Future<void> addAssetModel(AssetModel assetModel) async {
+    await _financialDataRepository.addAssetModelToList(assetModel);
+  }
+
   Future<void> fetchDebtModelList() async {
     _debtModelList = await _financialDataRepository.fetchDebtModelList();
   }
 
-  Future<void> addAssetModelToList(AssetModel assetModel) async {
-    await _financialDataRepository.addItemToAssetModelList(assetModel);
-    await refreshPositiveItemList();
-  }
-
-  Future<void> refreshPositiveItemList() async {
-    _assetModelList = _financialDataRepository.assetModelList;
+  Future<void> removeAssetModelByIndex(int i) async {
+    await _financialDataRepository.removeAssetModelByIndex(i);
   }
 
 }
