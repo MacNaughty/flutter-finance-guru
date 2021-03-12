@@ -25,4 +25,29 @@ class MockFinancialDatabaseDao extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#fetchAssetModelList, []),
               returnValue: Future.value(<_i4.AssetModel>[]))
           as _i3.Future<List<_i4.AssetModel>>);
+  @override
+  _i3.Future<void> addItemToAssetModelList(_i4.AssetModel? assetModel) => (super
+      .noSuchMethod(Invocation.method(#addItemToAssetModelList, [assetModel]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> addItemToDebtModelList(_i4.DebtModel? debtModel) => (super
+      .noSuchMethod(Invocation.method(#addItemToDebtModelList, [debtModel]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<List<_i4.DebtModel>> fetchDebtModelList() =>
+      (super.noSuchMethod(Invocation.method(#fetchDebtModelList, []),
+              returnValue: Future.value(<_i4.DebtModel>[]))
+          as _i3.Future<List<_i4.DebtModel>>);
+  @override
+  _i3.Future<void> removeAssetModelByIndexList(int? i) =>
+      (super.noSuchMethod(Invocation.method(#removeAssetModelByIndexList, [i]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> removeDebtModelByIndexList(int? i) =>
+      (super.noSuchMethod(Invocation.method(#removeDebtModelByIndexList, [i]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
 }

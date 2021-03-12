@@ -3,6 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../commons/dummy_financial_data.dart';
 import 'home_viewmodel_test.mocks.dart';
 import 'package:finance_guru/vm/home_viewmodel.dart';
 import 'package:finance_guru/model/financial_data_model.dart';
@@ -29,19 +30,18 @@ class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
 void main() {
 
   group('fetch assetModelList, debtModelList and summary/netModelList', () {
-    final mockAssetModelList = [AssetModel(value: 100, title: 'Money in the Bank', uuid: 1)];
-    final mockDebtModelList = [DebtModel(value: 50, title: 'Credit Card Debt', uuid: 2)];
+
     MockFinancialDataRepository mockFinancialDataRepository = MockFinancialDataRepository();
-    when(mockFinancialDataRepository.assetModelList).thenAnswer((_) => mockAssetModelList);
+    when(mockFinancialDataRepository.assetModelList).thenAnswer((_) => []);
     when(mockFinancialDataRepository.fetchAssetModelList()).thenAnswer((_) async => Future.value(mockAssetModelList));
 
-    when(mockFinancialDataRepository.debtModelList).thenAnswer((_) => mockDebtModelList);
+    when(mockFinancialDataRepository.debtModelList).thenAnswer((_) => []);
     when(mockFinancialDataRepository.fetchDebtModelList()).thenAnswer((_) async => Future.value(mockDebtModelList));
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: mockFinancialDataRepository);
 
     test('fetch and set assetModelList from the repository', () async {
 
-      expect(homeViewModel.assetModelList, mockAssetModelList);
+      expect(homeViewModel.assetModelList, []);
 
       await homeViewModel.fetchAssetModelList();
 
@@ -65,8 +65,7 @@ void main() {
   });
 
   group('update items from asset & debt modelLists', () {
-    AssetModel testAsset1 = AssetModel(value: 125, title: 'Bricks', uuid: 3);
-    AssetModel testAsset2 = AssetModel(value: 99, title: 'Concrete', uuid: 3);
+
 
     FakeFinancialDataRepository fakeFinancialDataRepository = FakeFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: fakeFinancialDataRepository);
@@ -119,7 +118,6 @@ void main() {
 
       await homeViewModel.removeAssetModelByIndex(0);
 
-      expect(fakeFinancialDataRepository._assetModelList, [testAsset2]);
       expect(homeViewModel.assetModelList, [testAsset2]);
 
     });

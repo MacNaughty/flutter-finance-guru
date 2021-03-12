@@ -24,6 +24,30 @@ class FinancialDatabaseDao extends IFinDataDao {
     throw UnimplementedError();
   }
 
+  @override
+  Future<void> addItemToDebtModelList(DebtModel debtModel) {
+    // TODO: implement addItemToDebtModelList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DebtModel>> fetchDebtModelList() {
+    // TODO: implement fetchDebtModelList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeAssetModelByIndexList(int i) {
+    // TODO: implement removeAssetModelByIndexList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeDebtModelByIndexList(int i) {
+    // TODO: implement removeDebtModelByIndexList
+    throw UnimplementedError();
+  }
+
 
 
 }

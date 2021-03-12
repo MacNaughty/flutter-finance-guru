@@ -45,6 +45,16 @@ class MockFinancialDataRepository extends _i1.Mock
               returnValue: Future.value(<_i4.AssetModel>[]))
           as _i5.Future<List<_i4.AssetModel>>);
   @override
+  _i5.Future<void> addAssetModelToList(_i4.AssetModel? assetModel) =>
+      (super.noSuchMethod(Invocation.method(#addAssetModelToList, [assetModel]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> removeAssetModelByIndex(int? i) =>
+      (super.noSuchMethod(Invocation.method(#removeAssetModelByIndex, [i]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
   _i5.Future<List<_i4.DebtModel>> fetchDebtModelList() =>
       (super.noSuchMethod(Invocation.method(#fetchDebtModelList, []),
               returnValue: Future.value(<_i4.DebtModel>[]))
