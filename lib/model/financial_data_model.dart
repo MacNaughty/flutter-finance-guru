@@ -1,4 +1,6 @@
-class FinancialDataModel {
+import 'package:equatable/equatable.dart';
+
+class FinancialDataModel extends Equatable {
   late String title;
   late int value;
 
@@ -18,6 +20,9 @@ class FinancialDataModel {
     this.description = description;
     this.interestRate = interestRate;
   }
+
+  @override
+  List<Object?> get props => [value, title, description, interestRate];
 }
 
 abstract class DebtAssetModel extends FinancialDataModel {

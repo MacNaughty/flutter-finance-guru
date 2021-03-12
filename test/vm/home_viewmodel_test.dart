@@ -10,10 +10,15 @@ import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:finance_guru/data/financial_data_repository.dart';
 
 class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
-
   List<AssetModel> _assetModelList = [];
+
   @override
   List<AssetModel> get assetModelList => _assetModelList;
+
+  List<DebtModel> _debtModelList = [];
+
+  @override
+  List<DebtModel> get debtModelList => _debtModelList;
 
   @override
   Future<void> addAssetModelToList(AssetModel assetModel) async {
@@ -28,9 +33,7 @@ class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
 
 @GenerateMocks([FinancialDataRepository])
 void main() {
-
   group('fetch assetModelList, debtModelList and summary/netModelList', () {
-
     MockFinancialDataRepository mockFinancialDataRepository = MockFinancialDataRepository();
     when(mockFinancialDataRepository.assetModelList).thenAnswer((_) => []);
     when(mockFinancialDataRepository.fetchAssetModelList()).thenAnswer((_) async => Future.value(mockAssetModelList));
@@ -40,7 +43,6 @@ void main() {
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: mockFinancialDataRepository);
 
     test('fetch assetModelList from the repository', () async {
-
       expect(homeViewModel.assetModelList, []);
 
       await homeViewModel.fetchAssetModelList();
@@ -54,7 +56,6 @@ void main() {
     });
 
     test('fetch debtModelList from the repository', () async {
-
       expect(homeViewModel.debtModelList, []);
 
       await homeViewModel.fetchDebtModelList();
@@ -64,26 +65,24 @@ void main() {
     });
 
     test('fetch summaryModelList from the repository', () async {
-
-      expect(homeViewModel.summaryFinancialModelList, []);
+      expect(homeViewModel.summaryFinancialModelList.summaryList, []);
       expect(homeViewModel.assetModelList, mockAssetModelList);
       expect(homeViewModel.debtModelList, mockDebtModelList);
       homeViewModel.setSummaryModelList();
 
-      expect(homeViewModel.summaryFinancialModelList, [
+      FinancialSummaryList expectedResult = FinancialSummaryList.fromDebtAssets(assetList: mockAssetModelList, debtList: mockDebtModelList);
+      expectedResult.summaryList.clear();
+      expectedResult.summaryList.addAll([
         FinancialDataModel(value: 75, title: 'Net Worth'),
         FinancialDataModel(value: 100, title: 'Assets'),
         FinancialDataModel(value: 25, title: 'Debt'),
       ]);
-      verify(mockFinancialDataRepository.fetchDebtModelList());
+
+      expect(homeViewModel.summaryFinancialModelList, expectedResult);
     });
   });
 
-
-
-
   group('update items from asset & debt modelLists', () {
-
     FakeFinancialDataRepository fakeFinancialDataRepository = FakeFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: fakeFinancialDataRepository);
 
@@ -102,7 +101,6 @@ void main() {
     });
 
     test('test refresh assetModelList from repository', () async {
-
       expect(homeViewModel.assetModelList, []);
 
       fakeFinancialDataRepository.assetModelList.add(testAsset1);
@@ -113,20 +111,16 @@ void main() {
       fakeFinancialDataRepository._assetModelList.clear();
     });
 
-
     test('add positive asset model to list in repository', () async {
-
       expect(homeViewModel.assetModelList, []);
 
       await homeViewModel.addAssetModel(testAsset1);
 
       expect(homeViewModel.assetModelList, [testAsset1]);
       fakeFinancialDataRepository._assetModelList.clear();
-
     });
 
     test('remove positive asset model to list in repository', () async {
-
       expect(homeViewModel.assetModelList, []);
       await homeViewModel.addAssetModel(testAsset1);
       await homeViewModel.addAssetModel(testAsset2);
@@ -134,7 +128,6 @@ void main() {
       await homeViewModel.removeAssetModelByIndex(0);
 
       expect(homeViewModel.assetModelList, [testAsset2]);
-
     });
   });
 }
