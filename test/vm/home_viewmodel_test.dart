@@ -39,7 +39,7 @@ void main() {
     when(mockFinancialDataRepository.fetchDebtModelList()).thenAnswer((_) async => Future.value(mockDebtModelList));
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: mockFinancialDataRepository);
 
-    test('fetch and set assetModelList from the repository', () async {
+    test('fetch assetModelList from the repository', () async {
 
       expect(homeViewModel.assetModelList, []);
 
@@ -49,11 +49,11 @@ void main() {
       expect(homeViewModel.assetModelList.length, 1);
       expect(homeViewModel.assetModelList[0].value, 100);
       expect(homeViewModel.assetModelList[0].title, 'Money in the Bank');
-      expect(homeViewModel.assetModelList[0].uuid, 1);
+      // expect(homeViewModel.assetModelList[0].uuid, "1");
       verify(mockFinancialDataRepository.fetchAssetModelList());
     });
 
-    test('fetch and set debtModelList from the repository', () async {
+    test('fetch debtModelList from the repository', () async {
 
       expect(homeViewModel.debtModelList, []);
 
@@ -62,10 +62,27 @@ void main() {
       expect(homeViewModel.debtModelList, mockDebtModelList);
       verify(mockFinancialDataRepository.fetchDebtModelList());
     });
+
+    test('fetch summaryModelList from the repository', () async {
+
+      expect(homeViewModel.summaryFinancialModelList, []);
+      expect(homeViewModel.assetModelList, mockAssetModelList);
+      expect(homeViewModel.debtModelList, mockDebtModelList);
+      homeViewModel.setSummaryModelList();
+
+      expect(homeViewModel.summaryFinancialModelList, [
+        FinancialDataModel(value: 75, title: 'Net Worth'),
+        FinancialDataModel(value: 100, title: 'Assets'),
+        FinancialDataModel(value: 25, title: 'Debt'),
+      ]);
+      verify(mockFinancialDataRepository.fetchDebtModelList());
+    });
   });
 
-  group('update items from asset & debt modelLists', () {
 
+
+
+  group('update items from asset & debt modelLists', () {
 
     FakeFinancialDataRepository fakeFinancialDataRepository = FakeFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: fakeFinancialDataRepository);
@@ -77,9 +94,10 @@ void main() {
 
       expect(homeViewModel.assetModelList, fakeFinancialDataRepository.assetModelList);
       expect(homeViewModel.assetModelList.length, 1);
-      expect(homeViewModel.assetModelList[0].value, 125);
-      expect(homeViewModel.assetModelList[0].title, 'Bricks');
-      expect(homeViewModel.assetModelList[0].uuid, 3);
+      expect(homeViewModel.assetModelList, [testAsset1]);
+      expect(homeViewModel.assetModelList[0].value, testAsset1.value);
+      expect(homeViewModel.assetModelList[0].title, testAsset1.title);
+      expect(homeViewModel.assetModelList[0].uuid, testAsset1.uuid);
       fakeFinancialDataRepository._assetModelList.clear();
     });
 
@@ -90,11 +108,8 @@ void main() {
       fakeFinancialDataRepository.assetModelList.add(testAsset1);
 
       expect(homeViewModel.assetModelList, fakeFinancialDataRepository._assetModelList);
+      expect(fakeFinancialDataRepository.assetModelList, fakeFinancialDataRepository._assetModelList);
       expect(homeViewModel.assetModelList, [testAsset1]);
-      expect(homeViewModel.assetModelList.length, 1);
-      expect(homeViewModel.assetModelList[0].value, 125);
-      expect(homeViewModel.assetModelList[0].title, 'Bricks');
-      expect(homeViewModel.assetModelList[0].uuid, 3);
       fakeFinancialDataRepository._assetModelList.clear();
     });
 

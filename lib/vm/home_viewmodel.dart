@@ -7,13 +7,19 @@ class HomeViewModel with ChangeNotifier {
 
   List<AssetModel> _assetModelList = [];
   List<AssetModel> get assetModelList => _assetModelList;
+
   List<DebtModel> _debtModelList = [];
   List<DebtModel> get debtModelList => _debtModelList;
+
+  List<FinancialDataModel> get summaryFinancialModelList => [];
 
   HomeViewModel({required IFinDataRepository financialDataRepository }) {
     _financialDataRepository = financialDataRepository;
     _assetModelList = _financialDataRepository.assetModelList;
   }
+
+
+
 
   Future<void> fetchAssetModelList() async {
     _assetModelList = await _financialDataRepository.fetchAssetModelList();
@@ -29,6 +35,10 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> removeAssetModelByIndex(int i) async {
     await _financialDataRepository.removeAssetModelByIndex(i);
+  }
+
+  List<FinancialDataModel> setSummaryModelList() {
+    throw UnimplementedError('Complete setSummaryModelList in HomeViewModel when test is complete');
   }
 
 }
