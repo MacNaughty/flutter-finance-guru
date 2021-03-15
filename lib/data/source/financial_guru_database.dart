@@ -31,8 +31,8 @@ class FinGuruDatabase {
     return await openDatabase(
         join((databasesPath), 'finance_guru.db'),
         onCreate: (db, version) async {
-          await db.execute("CREATE TABLE positive_assets("
-              "uuid INTEGER PRIMARY KEY, value INTEGER, title TEXT, desc TEXT, interestRate REAL)"
+          await db.execute(
+              "CREATE TABLE positive_assets(uuid INTEGER PRIMARY KEY, value INTEGER, title TEXT, desc TEXT, interestRate REAL)"
           );
         },
         version: 1

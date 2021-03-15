@@ -22,8 +22,8 @@ class FinancialDao extends IFinancialDao {
 
   @override
   Future<void> addItemToAssetModelList(AssetModel assetModel) async {
-    // TODO: implement addItemToAssetModelList
-    throw UnimplementedError();
+    Map<String, dynamic> assetMap = assetModel.toMap();
+    await _database.insert("positive_assets", assetMap, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   @override
@@ -42,6 +42,11 @@ class FinancialDao extends IFinancialDao {
   Future<void> removeAssetModelFromListByIndex(int i) async {
     // TODO: implement removeAssetModelByIndexList
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteAllAssetModels(String tableName) async {
+    await _database.delete(tableName);
   }
 
   @override

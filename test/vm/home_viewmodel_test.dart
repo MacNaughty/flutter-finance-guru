@@ -54,7 +54,7 @@ void main() {
 
       expect(homeViewModel.assetModelList, mockAssetModelList);
       expect(homeViewModel.assetModelList.length, 1);
-      expect(homeViewModel.assetModelList[0].value, 100);
+      expect(homeViewModel.assetModelList[0].valueInCents, 100);
       expect(homeViewModel.assetModelList[0].title, 'Money in the Bank');
       expect(homeViewModel.assetModelList[0].uuid, "1");
       verify(mockFinancialDataRepository.fetchAssetModelList());
@@ -98,7 +98,7 @@ void main() {
       expect(homeViewModel.assetModelList, fakeFinancialDataRepository.assetModelList);
       expect(homeViewModel.assetModelList.length, 1);
       expect(homeViewModel.assetModelList, [testAsset1]);
-      expect(homeViewModel.assetModelList[0].value, testAsset1.value);
+      expect(homeViewModel.assetModelList[0].valueInCents, testAsset1.valueInCents);
       expect(homeViewModel.assetModelList[0].title, testAsset1.title);
       expect(homeViewModel.assetModelList[0].uuid, testAsset1.uuid);
 

@@ -2,27 +2,27 @@ import 'package:equatable/equatable.dart';
 
 class FinancialDataModel extends Equatable {
   late String title;
-  late int value;
+  late int valueInCents;
 
   String? description;
-  double? interestRate;
+  String? interestRate;
 
   FinancialDataModel.fromJson(Map<String, dynamic> json) {
-    value = json['value'];
+    valueInCents = json['value'];
     title = json['title'];
-    description = json['description'];
+    description = json['desc'];
     interestRate = json['interestRate'];
   }
 
   FinancialDataModel({required int value, required String title, description, interestRate, type}) {
-    this.value = value;
+    this.valueInCents = value;
     this.title = title;
     this.description = description;
     this.interestRate = interestRate;
   }
 
   @override
-  List<Object?> get props => [value, title, description, interestRate];
+  List<Object?> get props => [valueInCents, title, description, interestRate];
 }
 
 abstract class DebtAssetModel extends FinancialDataModel {
@@ -46,6 +46,16 @@ class AssetModel extends DebtAssetModel {
       : super(value: value, title: title, uuid: uuid, description: description, interestRate: interestRate);
 
   AssetModel.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> result = {};
+    result['uuid'] = uuid;
+    result['value'] = valueInCents;
+    result['title'] = title;
+    result['desc'] = description;
+    result['interestRate'] = interestRate;
+    return result;
+  }
 
 
 }

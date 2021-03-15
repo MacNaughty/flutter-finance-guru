@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
-
 import 'package:finance_guru/data/source/financial_dao.dart';
 import 'package:finance_guru/data/financial_data_repository.dart';
 import 'package:path/path.dart';
@@ -14,7 +13,6 @@ import 'package:test/test.dart';
 import '../../commons/dummy_financial_data.dart';
 
 class FakeFinancialDatabase extends Fake implements FinGuruDatabase {
-
   Database? _database;
 
   @override
@@ -41,28 +39,28 @@ class FakeFinancialDatabase extends Fake implements FinGuruDatabase {
     } else {
       databasesPath = factoryDatabasesPath;
     }
-    return await openDatabase(
-        join((databasesPath), 'finance_guru_test.db'),
-        onCreate: (db, version) async {
-          await db.execute("CREATE TABLE positive_assets("
-              "uuid TEXT PRIMARY KEY, value INTEGER, title TEXT, desc TEXT, interestRate REAL)"
-          );
-        },
-        version: 1
-    );
+    return await openDatabase(join((databasesPath), 'finance_guru_test.db'), onCreate: (db, version) async {
+      await db.execute(
+          "CREATE TABLE positive_assets(uuid TEXT PRIMARY KEY, value INTEGER, title TEXT, desc TEXT, interestRate REAL)");
+    }, version: 1);
   }
-
-
 }
 
 @GenerateMocks([FinancialDao])
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   Database database = await FakeFinancialDatabase().database;
   FinancialDao financialDao = FinancialDao(database: database);
 
-  group('fetch assetModelList and debtModelList from database', ()  {
+  group('fetch assetModelList and debtModelList from database', () {
+
+    setUp(() {
+
+    });
+
+    tearDown(() {
+      financialDao.deleteAllAssetModels('positive_assets');
+    });
 
     test('fetch existing assets from database', () async {
       List<AssetModel> assetModelList = await financialDao.fetchAssetModelList();
@@ -72,7 +70,7 @@ void main() async {
     test('add asset model to database', () async {
       List<AssetModel> assetModelList = await financialDao.fetchAssetModelList();
       expect(assetModelList, []);
-      financialDao.addItemToAssetModelList(testAsset0);
+      await financialDao.addItemToAssetModelList(testAsset0);
 
       assetModelList = await financialDao.fetchAssetModelList();
       expect(assetModelList, [testAsset0]);
