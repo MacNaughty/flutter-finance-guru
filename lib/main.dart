@@ -1,4 +1,4 @@
-import 'package:finance_guru/data/source/financial_database_dao.dart';
+import 'package:finance_guru/data/source/financial_dao.dart';
 import 'package:finance_guru/data/source/financial_guru_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Provider<HomeViewModel>(
               create: (ctx) => HomeViewModel(
                 financialDataRepository: FinancialDataRepository(
-                  dao: FinancialDatabaseDao(database: database),
+                  dao: FinancialDao(database: database),
                 ),
               ),
               child: HomeScreen(),

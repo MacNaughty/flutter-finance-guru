@@ -5,14 +5,14 @@
 import 'dart:async' as _i5;
 
 import 'package:finance_guru/data/financial_data_repository.dart' as _i3;
-import 'package:finance_guru/data/source/i_findata_dao.dart' as _i2;
+import 'package:finance_guru/data/source/i_financial_dao.dart' as _i2;
 import 'package:finance_guru/model/financial_data_model.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
 
-class _FakeIFinDataDao extends _i1.Fake implements _i2.IFinDataDao {}
+class _FakeIFinDataDao extends _i1.Fake implements _i2.IFinancialDao {}
 
 /// A class which mocks [FinancialDataRepository].
 ///
@@ -24,11 +24,11 @@ class MockFinancialDataRepository extends _i1.Mock
   }
 
   @override
-  _i2.IFinDataDao get finDataDao =>
+  _i2.IFinancialDao get finDataDao =>
       (super.noSuchMethod(Invocation.getter(#finDataDao),
-          returnValue: _FakeIFinDataDao()) as _i2.IFinDataDao);
+          returnValue: _FakeIFinDataDao()) as _i2.IFinancialDao);
   @override
-  set finDataDao(_i2.IFinDataDao? _finDataDao) =>
+  set finDataDao(_i2.IFinancialDao? _finDataDao) =>
       super.noSuchMethod(Invocation.setter(#finDataDao, _finDataDao),
           returnValueForMissingStub: null);
   @override

@@ -1,6 +1,6 @@
 import '../../model/financial_data_model.dart';
 
-abstract class IFinDataDao {
+abstract class IFinancialDao {
 
   Future<List<AssetModel>> fetchAssetModelList();
   Future<void> addItemToAssetModelList(AssetModel assetModel);

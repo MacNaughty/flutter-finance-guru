@@ -3,19 +3,21 @@ import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'financial_guru_database.dart';
-import 'i_findata_dao.dart';
+import 'i_financial_dao.dart';
 
-class FinancialDatabaseDao extends IFinDataDao {
+class FinancialDao extends IFinancialDao {
 
   late Database _database;
-  FinancialDatabaseDao({required Database database}) {
+  FinancialDao({required Database database}) {
     _database = database;
   }
 
   @override
   Future<List<AssetModel>> fetchAssetModelList() async {
-    // TODO: implement fetchAssetModelList
-    throw UnimplementedError();
+
+    final List<Map<String, dynamic>> rawAssetListData = await _database.query("positive_assets");
+
+    return rawAssetListData.map((element) => AssetModel.fromJson(element)).toList();
   }
 
   @override

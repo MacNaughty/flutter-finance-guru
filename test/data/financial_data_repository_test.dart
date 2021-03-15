@@ -1,17 +1,17 @@
-import 'package:finance_guru/data/source/i_findata_dao.dart';
+import 'package:finance_guru/data/source/i_financial_dao.dart';
 import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
 
-import 'package:finance_guru/data/source/financial_database_dao.dart';
+import 'package:finance_guru/data/source/financial_dao.dart';
 import 'package:finance_guru/data/financial_data_repository.dart';
 import 'package:test/test.dart';
 import 'financial_data_repository_test.mocks.dart';
 import '../commons/dummy_financial_data.dart';
 
 
-class FakeFinancialDatabaseDao extends Fake implements IFinDataDao {
+class FakeFinancialDatabaseDao extends Fake implements IFinancialDao {
 
   // For the real dao implementation, these fields will not exist
   List<AssetModel> fakeAssetModelList = [];
@@ -49,7 +49,7 @@ class FakeFinancialDatabaseDao extends Fake implements IFinDataDao {
 
 }
 
-@GenerateMocks([FinancialDatabaseDao])
+@GenerateMocks([FinancialDao])
 void main() {
 
   group('fetch assetModelList and debtModelList, using dao', () {

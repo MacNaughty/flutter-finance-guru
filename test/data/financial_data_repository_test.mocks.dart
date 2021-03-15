@@ -4,7 +4,7 @@
 
 import 'dart:async' as _i3;
 
-import 'package:finance_guru/data/source/financial_database_dao.dart' as _i2;
+import 'package:finance_guru/data/source/financial_dao.dart' as _i2;
 import 'package:finance_guru/model/financial_data_model.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -15,7 +15,7 @@ import 'package:mockito/mockito.dart' as _i1;
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFinancialDatabaseDao extends _i1.Mock
-    implements _i2.FinancialDatabaseDao {
+    implements _i2.FinancialDao {
   MockFinancialDatabaseDao() {
     _i1.throwOnMissingStub(this);
   }

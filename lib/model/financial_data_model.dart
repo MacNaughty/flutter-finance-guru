@@ -33,14 +33,26 @@ abstract class DebtAssetModel extends FinancialDataModel {
       :
         uuid = uuid,
         super(title: title, value: value, description: description, interestRate: interestRate);
+
+
+  DebtAssetModel.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    uuid = json['uuid'];
+  }
 }
 
 class AssetModel extends DebtAssetModel {
+
   AssetModel({required int value, required String title, required String uuid, description, interestRate, type})
       : super(value: value, title: title, uuid: uuid, description: description, interestRate: interestRate);
+
+  AssetModel.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+
+
 }
 
 class DebtModel extends DebtAssetModel {
   DebtModel({required int value, required String title, required String uuid, description, interestRate, type})
       : super(value: value, title: title, uuid: uuid, description: description, interestRate: interestRate);
+
+  DebtModel.fromJson(Map<String, dynamic> json) : super.fromJson(json);
 }
