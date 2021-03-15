@@ -10,13 +10,13 @@ import 'package:finance_guru/model/financial_data_model.dart';
 import 'package:finance_guru/data/financial_data_repository.dart';
 
 class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
-  List<AssetModel> _assetModelList = [];
 
+  List<AssetModel> _assetModelList = [];
   @override
   List<AssetModel> get assetModelList => _assetModelList;
 
-  List<DebtModel> _debtModelList = [];
 
+  List<DebtModel> _debtModelList = [];
   @override
   List<DebtModel> get debtModelList => _debtModelList;
 
@@ -33,7 +33,12 @@ class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
 
 @GenerateMocks([FinancialDataRepository])
 void main() {
+
+
+
   group('fetch assetModelList, debtModelList and summary/netModelList', () {
+
+
     MockFinancialDataRepository mockFinancialDataRepository = MockFinancialDataRepository();
     when(mockFinancialDataRepository.assetModelList).thenAnswer((_) => []);
     when(mockFinancialDataRepository.fetchAssetModelList()).thenAnswer((_) async => Future.value(mockAssetModelList));
@@ -51,7 +56,7 @@ void main() {
       expect(homeViewModel.assetModelList.length, 1);
       expect(homeViewModel.assetModelList[0].value, 100);
       expect(homeViewModel.assetModelList[0].title, 'Money in the Bank');
-      // expect(homeViewModel.assetModelList[0].uuid, "1");
+      expect(homeViewModel.assetModelList[0].uuid, "1");
       verify(mockFinancialDataRepository.fetchAssetModelList());
     });
 
@@ -71,20 +76,19 @@ void main() {
       homeViewModel.setSummaryModelList();
 
       FinancialSummaryList expectedResult = FinancialSummaryList.fromDebtAssets(assetList: mockAssetModelList, debtList: mockDebtModelList);
-      expectedResult.summaryList.clear();
-      expectedResult.summaryList.addAll([
-        FinancialDataModel(value: 75, title: 'Net Worth'),
-        FinancialDataModel(value: 100, title: 'Assets'),
-        FinancialDataModel(value: 25, title: 'Debt'),
-      ]);
 
       expect(homeViewModel.summaryFinancialModelList, expectedResult);
     });
   });
 
   group('update items from asset & debt modelLists', () {
+
     FakeFinancialDataRepository fakeFinancialDataRepository = FakeFinancialDataRepository();
     HomeViewModel homeViewModel = HomeViewModel(financialDataRepository: fakeFinancialDataRepository);
+
+    tearDown(() async {
+      fakeFinancialDataRepository._assetModelList.clear();
+    });
 
     test('test refresh assetModelList from repository', () async {
       expect(homeViewModel.assetModelList, []);
@@ -97,7 +101,20 @@ void main() {
       expect(homeViewModel.assetModelList[0].value, testAsset1.value);
       expect(homeViewModel.assetModelList[0].title, testAsset1.title);
       expect(homeViewModel.assetModelList[0].uuid, testAsset1.uuid);
-      fakeFinancialDataRepository._assetModelList.clear();
+
+    });
+
+    test('test refresh assetModelList from repository', () async {
+      expect(homeViewModel.assetModelList, []);
+
+      fakeFinancialDataRepository.assetModelList.add(testAsset1);
+      fakeFinancialDataRepository.assetModelList.add(testAsset2);
+
+      expect(homeViewModel.assetModelList, fakeFinancialDataRepository.assetModelList);
+      expect(homeViewModel.assetModelList, [testAsset1, testAsset2]);
+      expect(homeViewModel.assetModelList[0], testAsset1);
+      expect(homeViewModel.assetModelList[1], testAsset2);
+
     });
 
     test('test refresh assetModelList from repository', () async {
@@ -108,7 +125,6 @@ void main() {
       expect(homeViewModel.assetModelList, fakeFinancialDataRepository._assetModelList);
       expect(fakeFinancialDataRepository.assetModelList, fakeFinancialDataRepository._assetModelList);
       expect(homeViewModel.assetModelList, [testAsset1]);
-      fakeFinancialDataRepository._assetModelList.clear();
     });
 
     test('add positive asset model to list in repository', () async {
@@ -117,7 +133,16 @@ void main() {
       await homeViewModel.addAssetModel(testAsset1);
 
       expect(homeViewModel.assetModelList, [testAsset1]);
-      fakeFinancialDataRepository._assetModelList.clear();
+    });
+
+    test('remove positive asset model to list in repository', () async {
+      expect(homeViewModel.assetModelList, []);
+      await homeViewModel.addAssetModel(testAsset1);
+      await homeViewModel.addAssetModel(testAsset2);
+
+      await homeViewModel.removeAssetModelByIndex(0);
+
+      expect(homeViewModel.assetModelList, [testAsset2]);
     });
 
     test('remove positive asset model to list in repository', () async {

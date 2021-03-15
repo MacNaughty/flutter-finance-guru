@@ -51,7 +51,6 @@ class HomeViewModel with ChangeNotifier {
       FinancialDataModel(value: sumNegativeBalances, title: 'Debt'),
     ]);
   }
-
 }
 
 class DebtModelList extends Equatable with ChangeNotifier {
@@ -84,7 +83,7 @@ class FinancialSummaryList extends Equatable with ChangeNotifier {
   FinancialSummaryList.fromDebtAssets({required List<DebtModel> debtList, required List<AssetModel> assetList}) {
     int sumPositiveBalances = assetList.map((e) => e.value).reduce((value, element) => value + element);
     int sumNegativeBalances = debtList.map((e) => e.value).reduce((value, element) => value + element);
-    int netWorth = sumPositiveBalances + sumNegativeBalances;
+    int netWorth = sumPositiveBalances - sumNegativeBalances;
 
     summaryList.clear();
     summaryList.addAll([

@@ -26,6 +26,7 @@ class FinancialDataRepository implements IFinDataRepository {
     return assetModelList;
   }
 
+  @override
   Future<void> addAssetModelToList(AssetModel assetModel) async {
     // TODO: implement addItemToAssetModelList
     throw UnimplementedError();
