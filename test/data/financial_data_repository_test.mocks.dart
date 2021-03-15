@@ -41,12 +41,12 @@ class MockFinancialDatabaseDao extends _i1.Mock
               returnValue: Future.value(<_i4.DebtModel>[]))
           as _i3.Future<List<_i4.DebtModel>>);
   @override
-  _i3.Future<void> removeAssetModelByIndexList(int? i) =>
+  _i3.Future<void> removeAssetModelFromListByIndex(int? i) =>
       (super.noSuchMethod(Invocation.method(#removeAssetModelByIndexList, [i]),
           returnValue: Future.value(null),
           returnValueForMissingStub: Future.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> removeDebtModelByIndexList(int? i) =>
+  _i3.Future<void> removeDebtModelFromListByIndex(int? i) =>
       (super.noSuchMethod(Invocation.method(#removeDebtModelByIndexList, [i]),
           returnValue: Future.value(null),
           returnValueForMissingStub: Future.value()) as _i3.Future<void>);

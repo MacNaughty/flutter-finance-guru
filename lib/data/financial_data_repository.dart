@@ -28,14 +28,14 @@ class FinancialDataRepository implements IFinDataRepository {
 
   @override
   Future<void> addAssetModelToList(AssetModel assetModel) async {
-    // TODO: implement addItemToAssetModelList
-    throw UnimplementedError();
+    await finDataDao.addItemToAssetModelList(assetModel);
+    fetchAssetModelList();
   }
 
   @override
   Future<void> removeAssetModelByIndex(int i) async {
-    // TODO: implement removeAssetModelByIndex
-    throw UnimplementedError();
+    await finDataDao.removeAssetModelFromListByIndex(i);
+    fetchAssetModelList();
   }
 
   List<DebtModel> _debtModelList = [];
@@ -47,6 +47,18 @@ class FinancialDataRepository implements IFinDataRepository {
   Future<List<DebtModel>> fetchDebtModelList() async {
     _debtModelList = await finDataDao.fetchDebtModelList();
     return debtModelList;
+  }
+
+  @override
+  Future<void> addDebtModelToList(DebtModel debtModel) async {
+    await finDataDao.addItemToDebtModelList(debtModel);
+    fetchDebtModelList();
+  }
+
+  @override
+  Future<void> removeDebtModelByIndex(int i) {
+    // TODO: implement removeDebtModelByIndex
+    throw UnimplementedError();
   }
 
 
