@@ -56,14 +56,9 @@ class FinancialDataRepository implements IFinDataRepository {
   }
 
   @override
-  Future<void> removeDebtModelByIndex(int i) {
-    // TODO: implement removeDebtModelByIndex
-    throw UnimplementedError();
+  Future<void> removeDebtModelByIndex(int i) async {
+    await finDataDao.removeDebtModelFromListByIndex(i);
+    fetchDebtModelList();
   }
-
-
-
-
-
 
 }

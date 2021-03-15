@@ -44,7 +44,7 @@ class FakeFinancialDatabaseDao extends Fake implements IFinDataDao {
 
   @override
   Future<void> removeDebtModelFromListByIndex(int i) async {
-    await Future.delayed(Duration(seconds: 1), () => fakeAssetModelList.removeAt(i));
+    await Future.delayed(Duration(seconds: 1), () => fakeDebtModelList.removeAt(i));
   }
 
 }
@@ -180,13 +180,15 @@ void main() {
 
     });
 
-    test('remove multiple debt model by index from list in the database, using dao', () async {
+    test('remove multiple debt models by index from list in the database, using dao', () async {
       expect(financialDataRepository.debtModelList, fakeDebtModelList2);
 
       await financialDataRepository.removeDebtModelByIndex(1);
+      await financialDataRepository.removeDebtModelByIndex(0);
       List<DebtModel> tempList = [];
       tempList.addAll(fakeDebtModelList2);
       tempList.removeAt(1);
+      tempList.removeAt(0);
       expect(financialDataRepository.debtModelList, tempList);
 
     });
