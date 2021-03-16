@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
 
-class _FakeIFinDataDao extends _i1.Fake implements _i2.IFinancialDao {}
+class _FakeIFinancialDao extends _i1.Fake implements _i2.IFinancialDao {}
 
 /// A class which mocks [FinancialDataRepository].
 ///
@@ -26,7 +26,7 @@ class MockFinancialDataRepository extends _i1.Mock
   @override
   _i2.IFinancialDao get finDataDao =>
       (super.noSuchMethod(Invocation.getter(#finDataDao),
-          returnValue: _FakeIFinDataDao()) as _i2.IFinancialDao);
+          returnValue: _FakeIFinancialDao()) as _i2.IFinancialDao);
   @override
   set finDataDao(_i2.IFinancialDao? _finDataDao) =>
       super.noSuchMethod(Invocation.setter(#finDataDao, _finDataDao),
@@ -50,8 +50,8 @@ class MockFinancialDataRepository extends _i1.Mock
           returnValue: Future.value(null),
           returnValueForMissingStub: Future.value()) as _i5.Future<void>);
   @override
-  _i5.Future<void> removeAssetModelByIndex(int? i) =>
-      (super.noSuchMethod(Invocation.method(#removeAssetModelByIndex, [i]),
+  _i5.Future<void> removeAssetModelById(String? id) =>
+      (super.noSuchMethod(Invocation.method(#removeAssetModelById, [id]),
           returnValue: Future.value(null),
           returnValueForMissingStub: Future.value()) as _i5.Future<void>);
   @override
@@ -59,4 +59,14 @@ class MockFinancialDataRepository extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#fetchDebtModelList, []),
               returnValue: Future.value(<_i4.DebtModel>[]))
           as _i5.Future<List<_i4.DebtModel>>);
+  @override
+  _i5.Future<void> addDebtModelToList(_i4.DebtModel? debtModel) =>
+      (super.noSuchMethod(Invocation.method(#addDebtModelToList, [debtModel]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> removeDebtModelById(String? id) =>
+      (super.noSuchMethod(Invocation.method(#removeDebtModelById, [id]),
+          returnValue: Future.value(null),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
 }

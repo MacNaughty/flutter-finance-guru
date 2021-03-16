@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
 class FinancialDataModel extends Equatable {
   late String title;
@@ -29,9 +30,9 @@ abstract class DebtAssetModel extends FinancialDataModel {
   late final String uuid;
 
   DebtAssetModel(
-      {required int value, required String title, required String uuid, String? description, String? interestRate})
+      {required int value, required String title, String? uuid, String? description, String? interestRate})
       :
-        uuid = uuid,
+        uuid = uuid == null ? Uuid().v1() : uuid,
         super(title: title, value: value, description: description, interestRate: interestRate);
 
 
@@ -42,7 +43,7 @@ abstract class DebtAssetModel extends FinancialDataModel {
 
 class AssetModel extends DebtAssetModel {
 
-  AssetModel({required int value, required String title, required String uuid, description, interestRate, type})
+  AssetModel({required int value, required String title, String? uuid, description, interestRate, type})
       : super(value: value, title: title, uuid: uuid, description: description, interestRate: interestRate);
 
   AssetModel.fromJson(Map<String, dynamic> json) : super.fromJson(json);
@@ -61,7 +62,7 @@ class AssetModel extends DebtAssetModel {
 }
 
 class DebtModel extends DebtAssetModel {
-  DebtModel({required int value, required String title, required String uuid, description, interestRate, type})
+  DebtModel({required int value, required String title, String? uuid, description, interestRate, type})
       : super(value: value, title: title, uuid: uuid, description: description, interestRate: interestRate);
 
   DebtModel.fromJson(Map<String, dynamic> json) : super.fromJson(json);

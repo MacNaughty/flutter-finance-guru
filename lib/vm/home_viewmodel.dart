@@ -36,7 +36,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<void> removeAssetModelByIndex(int i) async {
-    await _financialDataRepository.removeAssetModelByIndex(i);
+    await _financialDataRepository.removeAssetModelById(assetModelList[i].uuid);
   }
 
   void setSummaryModelList() {

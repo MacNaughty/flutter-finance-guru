@@ -4,12 +4,12 @@ abstract class IFinancialDao {
 
   Future<List<AssetModel>> fetchAssetModelList();
   Future<void> addItemToAssetModelList(AssetModel assetModel);
-  Future<void> removeAssetModelFromListByIndex(int i);
+  Future<void> removeAssetModelById(String id);
   Future<void> deleteAllAssetModels(String tableName);
 
   Future<List<DebtModel>> fetchDebtModelList();
   Future<void> addItemToDebtModelList(DebtModel debtModel);
-  Future<void> removeDebtModelFromListByIndex(int i);
+  Future<void> removeDebtModelById(String id);
 
 
 }

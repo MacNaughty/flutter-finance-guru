@@ -9,10 +9,10 @@ abstract class IFinDataRepository {
   Future<List<DebtModel>> fetchDebtModelList();
 
   Future<void> addAssetModelToList(AssetModel assetModel);
-  Future<void> removeAssetModelByIndex(int i);
+  Future<void> removeAssetModelById(String id);
 
 
   Future<void> addDebtModelToList(DebtModel debtModel);
-  Future<void> removeDebtModelByIndex(int i);
+  Future<void> removeDebtModelById(String id);
 
 }

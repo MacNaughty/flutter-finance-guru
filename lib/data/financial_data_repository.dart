@@ -33,8 +33,8 @@ class FinancialDataRepository implements IFinDataRepository {
   }
 
   @override
-  Future<void> removeAssetModelByIndex(int i) async {
-    await finDataDao.removeAssetModelFromListByIndex(i);
+  Future<void> removeAssetModelById(String id) async {
+    await finDataDao.removeAssetModelById(id);
     fetchAssetModelList();
   }
 
@@ -56,8 +56,8 @@ class FinancialDataRepository implements IFinDataRepository {
   }
 
   @override
-  Future<void> removeDebtModelByIndex(int i) async {
-    await finDataDao.removeDebtModelFromListByIndex(i);
+  Future<void> removeDebtModelById(String id) async {
+    await finDataDao.removeDebtModelById(id);
     fetchDebtModelList();
   }
 

@@ -39,7 +39,7 @@ class FinancialDao extends IFinancialDao {
   }
 
   @override
-  Future<void> removeAssetModelFromListByIndex(int i) async {
+  Future<void> removeAssetModelById(String id) async {
     // TODO: implement removeAssetModelByIndexList
     throw UnimplementedError();
   }
@@ -50,7 +50,7 @@ class FinancialDao extends IFinancialDao {
   }
 
   @override
-  Future<void> removeDebtModelFromListByIndex(int i) async {
+  Future<void> removeDebtModelById(String id) async {
     // TODO: implement removeDebtModelByIndexList
     throw UnimplementedError();
   }

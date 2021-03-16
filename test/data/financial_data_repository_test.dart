@@ -28,8 +28,8 @@ class FakeFinancialDatabaseDao extends Fake implements IFinancialDao {
   }
 
   @override
-  Future<void> removeAssetModelFromListByIndex(int i) async {
-    await Future.delayed(Duration(seconds: 1), () => fakeAssetModelList.removeAt(i));
+  Future<void> removeAssetModelById(String id) async {
+    await Future.delayed(Duration(seconds: 1), () => fakeAssetModelList.removeWhere((element) => element.uuid == id));
   }
 
   @override
@@ -43,8 +43,8 @@ class FakeFinancialDatabaseDao extends Fake implements IFinancialDao {
   }
 
   @override
-  Future<void> removeDebtModelFromListByIndex(int i) async {
-    await Future.delayed(Duration(seconds: 1), () => fakeDebtModelList.removeAt(i));
+  Future<void> removeDebtModelById(String id) async {
+    await Future.delayed(Duration(seconds: 1), () => fakeDebtModelList.removeWhere((element) => element.uuid == id));
   }
 
 }
@@ -54,7 +54,7 @@ void main() {
 
   group('fetch assetModelList and debtModelList, using dao', () {
 
-    MockFinancialDatabaseDao mockFinancialDatabaseDao = MockFinancialDatabaseDao();
+    MockFinancialDao mockFinancialDatabaseDao = MockFinancialDao();
     FinancialDataRepository financialDataRepository = FinancialDataRepository(dao: mockFinancialDatabaseDao);
 
     when(mockFinancialDatabaseDao.fetchAssetModelList()).thenAnswer((_) async => mockAssetModelList);
@@ -108,8 +108,8 @@ void main() {
 
     test('remove an asset model by index from list in the database, using dao', () async {
       expect(financialDataRepository.assetModelList, fakeAssetModelList2);
-
-      await financialDataRepository.removeAssetModelByIndex(0);
+      String firstElementId = fakeAssetModelList2[0].uuid;
+      await financialDataRepository.removeAssetModelById(firstElementId);
       List<AssetModel> tempList = [];
       tempList.addAll(fakeAssetModelList2);
       tempList.removeAt(0);
@@ -119,8 +119,9 @@ void main() {
 
     test('remove an asset model by index from list in the database, using dao', () async {
       expect(financialDataRepository.assetModelList, fakeAssetModelList2);
+      String thirdElementId = fakeAssetModelList2[2].uuid;
 
-      await financialDataRepository.removeAssetModelByIndex(2);
+      await financialDataRepository.removeAssetModelById(thirdElementId);
       List<AssetModel> tempList = [];
       tempList.addAll(fakeAssetModelList2);
       tempList.removeAt(2);
@@ -172,7 +173,7 @@ void main() {
     test('remove an asset debt by index from list in the database, using dao', () async {
       expect(financialDataRepository.debtModelList, fakeDebtModelList2);
 
-      await financialDataRepository.removeDebtModelByIndex(1);
+      await financialDataRepository.removeDebtModelById(fakeDebtModelList2[1].uuid);
       List<DebtModel> tempList = [];
       tempList.addAll(fakeDebtModelList2);
       tempList.removeAt(1);
@@ -183,8 +184,8 @@ void main() {
     test('remove multiple debt models by index from list in the database, using dao', () async {
       expect(financialDataRepository.debtModelList, fakeDebtModelList2);
 
-      await financialDataRepository.removeDebtModelByIndex(1);
-      await financialDataRepository.removeDebtModelByIndex(0);
+      await financialDataRepository.removeDebtModelById(fakeDebtModelList2[1].uuid);
+      await financialDataRepository.removeDebtModelById(fakeDebtModelList2[0].uuid);
       List<DebtModel> tempList = [];
       tempList.addAll(fakeDebtModelList2);
       tempList.removeAt(1);

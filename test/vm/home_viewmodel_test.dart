@@ -26,18 +26,15 @@ class FakeFinancialDataRepository extends Fake implements IFinDataRepository {
   }
 
   @override
-  Future<void> removeAssetModelByIndex(int i) async {
-    _assetModelList.removeAt(i);
+  Future<void> removeAssetModelById(String id) async {
+    _assetModelList.removeWhere((element) => element.uuid == id);
   }
 }
 
 @GenerateMocks([FinancialDataRepository])
 void main() {
 
-
-
   group('fetch assetModelList, debtModelList and summary/netModelList', () {
-
 
     MockFinancialDataRepository mockFinancialDataRepository = MockFinancialDataRepository();
     when(mockFinancialDataRepository.assetModelList).thenAnswer((_) => []);
@@ -56,7 +53,6 @@ void main() {
       expect(homeViewModel.assetModelList.length, 1);
       expect(homeViewModel.assetModelList[0].valueInCents, 100);
       expect(homeViewModel.assetModelList[0].title, 'Money in the Bank');
-      expect(homeViewModel.assetModelList[0].uuid, "1");
       verify(mockFinancialDataRepository.fetchAssetModelList());
     });
 
