@@ -46,7 +46,6 @@ class FakeFinancialDatabaseDao extends Fake implements IFinancialDao {
   Future<void> removeDebtModelById(String id) async {
     await Future.delayed(Duration(seconds: 1), () => fakeDebtModelList.removeWhere((element) => element.uuid == id));
   }
-
 }
 
 @GenerateMocks([FinancialDao])

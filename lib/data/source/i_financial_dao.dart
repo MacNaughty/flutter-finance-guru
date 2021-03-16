@@ -10,6 +10,7 @@ abstract class IFinancialDao {
   Future<List<DebtModel>> fetchDebtModelList();
   Future<void> addItemToDebtModelList(DebtModel debtModel);
   Future<void> removeDebtModelById(String id);
+  Future<void> deleteAllDebtModels(String tableName);
 
 
 }

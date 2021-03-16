@@ -54,15 +54,11 @@ void main() async {
 
   group('fetch assetModelList and debtModelList from database', () {
 
-    setUp(() {
-
-    });
-
     tearDown(() {
       financialDao.deleteAllAssetModels('positive_assets');
     });
 
-    test('fetch existing assets from database', () async {
+    test('ensure db has been cleared', () async {
       List<AssetModel> assetModelList = await financialDao.fetchAssetModelList();
       expect(assetModelList, []);
     });
@@ -71,6 +67,20 @@ void main() async {
       List<AssetModel> assetModelList = await financialDao.fetchAssetModelList();
       expect(assetModelList, []);
       await financialDao.addItemToAssetModelList(testAsset0);
+
+      assetModelList = await financialDao.fetchAssetModelList();
+      expect(assetModelList, [testAsset0]);
+    });
+
+    test('remove asset model', () async {
+      List<AssetModel> assetModelList = await financialDao.fetchAssetModelList();
+      expect(assetModelList, []);
+      await financialDao.addItemToAssetModelList(testAsset0);
+      await financialDao.addItemToAssetModelList(testAsset1);
+
+      assetModelList = await financialDao.fetchAssetModelList();
+      expect(assetModelList, [testAsset0, testAsset1]);
+      financialDao.removeAssetModelById(testAsset1.uuid);
 
       assetModelList = await financialDao.fetchAssetModelList();
       expect(assetModelList, [testAsset0]);

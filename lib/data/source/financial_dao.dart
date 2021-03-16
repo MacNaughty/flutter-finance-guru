@@ -14,9 +14,7 @@ class FinancialDao extends IFinancialDao {
 
   @override
   Future<List<AssetModel>> fetchAssetModelList() async {
-
     final List<Map<String, dynamic>> rawAssetListData = await _database.query("positive_assets");
-
     return rawAssetListData.map((element) => AssetModel.fromJson(element)).toList();
   }
 
@@ -24,18 +22,6 @@ class FinancialDao extends IFinancialDao {
   Future<void> addItemToAssetModelList(AssetModel assetModel) async {
     Map<String, dynamic> assetMap = assetModel.toMap();
     await _database.insert("positive_assets", assetMap, conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  @override
-  Future<void> addItemToDebtModelList(DebtModel debtModel) async {
-    // TODO: implement addItemToDebtModelList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<DebtModel>> fetchDebtModelList() async {
-    // TODO: implement fetchDebtModelList
-    throw UnimplementedError();
   }
 
   @override
@@ -49,10 +35,28 @@ class FinancialDao extends IFinancialDao {
     await _database.delete(tableName);
   }
 
+
+  @override
+  Future<List<DebtModel>> fetchDebtModelList() async {
+    // TODO: implement fetchDebtModelList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> addItemToDebtModelList(DebtModel debtModel) async {
+    // TODO: implement addItemToDebtModelList
+    throw UnimplementedError();
+  }
+
   @override
   Future<void> removeDebtModelById(String id) async {
     // TODO: implement removeDebtModelByIndexList
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteAllDebtModels(String tableName) async {
+    await _database.delete(tableName);
   }
 
 
