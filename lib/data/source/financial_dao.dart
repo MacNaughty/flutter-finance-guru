@@ -26,8 +26,7 @@ class FinancialDao extends IFinancialDao {
 
   @override
   Future<void> removeAssetModelById(String id) async {
-    // TODO: implement removeAssetModelByIndexList
-    throw UnimplementedError();
+    await _database.delete("positive_assets", where: "uuid = ?", whereArgs: [id]);
   }
 
   @override
